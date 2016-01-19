@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Node-red-contrib-rcswitch2 by nobodyMO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Node-red-contrib-rcswitch2</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/nobodyMO/node-red-contrib-rcswitch2" class="btn">View on GitHub</a>
+      <a href="https://github.com/nobodyMO/node-red-contrib-rcswitch2/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/nobodyMO/node-red-contrib-rcswitch2/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="node-rcswitch2" class="anchor" href="#node-rcswitch2" aria-hidden="true"><span class="octicon octicon-link"></span></a>node-rcswitch2</h1>
+
+<p><a href="http://badge.fury.io/js/node-red-contrib-rcswitch2"><img src="https://badge.fury.io/js/node-red-contrib-rcswitch2.svg" alt="NPM version"></a></p>
+
+<p>The node-red node node-rcswitch2 allows to control 315/433Mhz devices via the rcswitch library.
+This is an extented version of tlindener/node-red-contrib-rcswitch with support of different switch types, tristate and binary strings.</p>
+
+<p>The implementation based on <a href="https://github.com/marvinroger/node-rcswitch">https://github.com/marvinroger/node-rcswitch</a>. The supported switch types are described there.</p>
+
+<p>Node bindings for the <a href="https://github.com/r10r/rcswitch-pi">rcswitch RaspberryPi port (pin)</a>.</p>
+
+<p>It should be compatible with all versions of Node.js starting from 0.10.x.</p>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>Like the C++ version of rcswitch, <a href="https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/">WiringPi must be installed</a> in order to compile the used packages.</li>
+<li>Both the data and the power Pins of the 315/433Mhz emitter must be connected to the RPi. Note the number of the WiringPi data Pin. (see <a href="http://wiringpi.com/pins/">http://wiringpi.com/pins/</a>)</li>
+<li>The node command must be run with root access</li>
+</ul>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>The attributs <code>PIN</code> and <code>Mode</code> must be set in the node properties (edit dialog). The other configuration can either be done in the node properties or in the incoming message object.</p>
+
+<ul>
+<li>
+<code>PIN</code> - (Number) data Pin to use following <a href="http://wiringpi.com/pins/">the WiringPi schema</a>
+</li>
+<li>
+<code>Mode</code> - selects the operation mode of the node to support different manufacturers</li>
+</ul>
+
+<p>This node supports the following modes:</p>
+
+<ul>
+<li>
+<code>group code + Device</code> - For devices without family code. </li>
+</ul>
+
+<p>The group code is either an binary string with length 5 or a numeric value (1-4) and could be set in field <strong>Group</strong> or <strong>msg.group</strong>. The switch/device could be set in field <strong>Device</strong> or <strong>msg.device</strong> (value <a href="in%20this%20case%20Field%20Device%20must%20be%20set%20to" title="msg.device">ABCD</a>.  The Switchposition could be set in field <strong>Switch Position</strong> or in <strong>msg.payload</strong>. In this case the value 0 means off and the value 1 means on.</p>
+
+<ul>
+<li>
+<code>Family + Group code + Device</code> -For devices with family code.</li>
+</ul>
+
+<p>The Family code must be one of the chars [abcdef] and could be set in field <strong>Family</strong> or <strong>msg.family</strong>. The group code is numeric and must be one of the values [1234] and could be set in field <b>Group</b> or <b>msg.group</b>. The switch/device could be set in field <b>Device</b> or <strong>msg.device</strong> (value <a href="in%20this%20case%20Field%20Device%20must%20be%20set%20to" title="msg.device">ABCD</a>. The Switchposition could be set in field <strong>Switch Position</strong> or in <strong>msg.payload</strong>. In this case the value 0 means off and the value 1 means on.</p>
+
+<ul>
+<li>
+<code>Channel + Device (Tristate)</code> For devices with tristate code like micro-electric AS 73 witch is also sold as REV Telecontrol in Germany (Version with house code with 6 DIP switches). </li>
+</ul>
+
+<p>The Channel code must be a binary string with 0=off and 1=on and could be set in field <strong>Channel</strong> or <strong>msg.channel</strong> (in this case Field Channel must be empty). The switch/device could be set in field <strong>Device</strong> or <strong>msg.device</strong> (value <a href="in%20this%20case%20Field%20Device%20must%20be%20set%20to%20**msg.device**">ABCD</a>. The Switchposition could be set in field <strong>Switch Position</strong> or in <strong>msg.payload</strong>. In this case the value 0 means off and the value 1 means on.</p>
+
+<ul>
+<li>
+<code>Tristate String</code> Send a tristate string. </li>
+</ul>
+
+<p>The String could be set in field <strong>systemcode</strong> or <strong>msg.payload</strong>. Only the chars 0,1,F and S without any blanks are alowed.</p>
+
+<ul>
+<li>
+<code>Binary String</code> Send a binary string. The String could be set in field <strong>systemcode</strong> or <strong>msg.payload</strong>. Only the chars 0 and 1 without any blanks are alowed.</li>
+</ul>
+
+<p>An description of the types is on <a href="https://github.com/marvinroger/node-rcswitch">https://github.com/marvinroger/node-rcswitch</a>".</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/nobodyMO/node-red-contrib-rcswitch2">Node-red-contrib-rcswitch2</a> is maintained by <a href="https://github.com/nobodyMO">nobodyMO</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>

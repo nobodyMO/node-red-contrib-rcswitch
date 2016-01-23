@@ -1,7 +1,7 @@
 {
     "name"         : "node-red-contrib-rcswitch2",
     "author"	   : "nobodyMO,tlindener",
-    "version"      : "0.1.0",
+    "version"      : "0.1.1",
     "description"  : "Another rcswitch node for node-red",
     "license"      : "(MIT OR Apache-2.0)",
   "dependencies": {
@@ -13,6 +13,13 @@
         "nodes": {
             "rcswitch": "rcswitch/rcswitch.js"
         }
-    }
+    },
+    "repository" :
+  { "type" : "git"
+  , "url" : "https://github.com/nobodyMO/node-red-contrib-rcswitch2.git"
+  },
+  "config": {
+    "unsafe-perm": true
+  }
 
 }

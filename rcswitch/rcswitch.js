@@ -14,7 +14,7 @@ function RCSwitchNode(n){
 	node.channel=n.channel;
 	
 	this.on('input', function(msg) {
-	var rcswitch = require('rcswitch-gpiomem3');
+	var rcswitch = require('rcswitch4');
 
 		try{
             switch (node.func)   

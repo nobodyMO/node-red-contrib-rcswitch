@@ -1,11 +1,11 @@
 {
     "name"         : "node-red-contrib-rcswitch2",
     "author"	   : "nobodyMO,tlindener",
-    "version"      : "0.1.1",
+    "version"      : "0.4.0",
     "description"  : "Another rcswitch node for node-red",
     "license"      : "(MIT OR Apache-2.0)",
   "dependencies": {
-    "rcswitch": ">=0.3.0"
+    "rcswitch-gpiomem3": "latest"
    
   },
     "keywords": [ "node-red","rcswitch" ],

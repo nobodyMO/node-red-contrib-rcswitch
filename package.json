@@ -5,7 +5,7 @@
     "description"  : "Another rcswitch node for node-red",
     "license"      : "(MIT OR Apache-2.0)",
   "dependencies": {
-    "rcswitch-gpiomem3": "latest"
+    "rcswitch4": "latest"
    
   },
     "keywords": [ "node-red","rcswitch" ],
